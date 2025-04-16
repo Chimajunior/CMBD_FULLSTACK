@@ -11,12 +11,8 @@ export default function HeroSlider() {
  
 
   useEffect(() => {
-    const API_BASE =
-    typeof window !== "undefined"
-      ? window.ENV?.VITE_API_URL
-      : process.env.VITE_API_URL || "http://localhost:5000";
       
-    fetch(`${API_BASE}/api/movies?featured=true&limit=6`)
+    fetch(`/api/movies?featured=true&limit=6`)
       .then((res) => res.json())
       .then((data) => setHeroMovies(data.movies || []));
   }, []);

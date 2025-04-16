@@ -6,22 +6,22 @@ import Footer from "../components/footer";
 import ReviewForm from "../components/ReviewForm";
 import ReviewCard from "../components/ReviewCard";
 
-const API_BASE =
-  typeof window !== "undefined"
-    ? window.ENV?.VITE_API_URL
-    : process.env.VITE_API_URL || "http://localhost:5000";
+// const API_BASE =
+//   typeof window !== "undefined"
+//     ? window.ENV?.VITE_API_URL
+//     : process.env.VITE_API_URL || "http://localhost:5000";
 
 
 export const loader = async ({ params, request }) => {
   const { movieId } = params;
   const token = request.headers.get("Authorization");
-  const API_BASE = process.env.VITE_API_URL;
+  // const API_BASE = process.env.VITE_API_URL;
 
-  const movieRes = await fetch(`${API_BASE}/api/movies/${movieId}`);
+  const movieRes = await fetch(`/api/movies/${movieId}`);
   if (!movieRes.ok) throw new Response("Movie not found", { status: 404 });
   const movie = await movieRes.json();
 
-  const reviewsRes = await fetch(`${API_BASE}/api/reviews/${movieId}`, {
+  const reviewsRes = await fetch(`/api/reviews/${movieId}`, {
     headers: token ? { Authorization: token } : {},
   });
   const reviews = await reviewsRes.json();
@@ -69,7 +69,7 @@ export default function ReviewsPage() {
   //fetch latest reviews
   const fetchLatest = async () => {
     const token = localStorage.getItem("token");
-    const res = await fetch(`${API_BASE}/api/reviews/${movie.id}`, {
+    const res = await fetch(`/api/reviews/${movie.id}`, {
       headers: token ? { Authorization: `Bearer ${token}` } : {},
     });
     const updated = await res.json();
@@ -82,7 +82,7 @@ export default function ReviewsPage() {
     if (!token) return (window.location.href = "/login");
   
     try {
-      await fetch(`${API_BASE}/api/reviews/${id}/helpful`, {
+      await fetch(`/api/reviews/${id}/helpful`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -99,7 +99,7 @@ export default function ReviewsPage() {
     if (!token) return (window.location.href = "/login");
   
     try {
-      await fetch(`${API_BASE}/api/reviews/${id}/flag`, {
+      await fetch(`/api/reviews/${id}/flag`, {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
       });

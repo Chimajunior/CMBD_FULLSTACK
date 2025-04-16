@@ -13,12 +13,12 @@ useEffect(() => {
   const token = localStorage.getItem("token");
   if (!token) return;
 
-  const API_BASE =
-  typeof window !== "undefined"
-    ? window.ENV?.VITE_API_URL
-    : process.env.VITE_API_URL || "http://localhost:5000";
+  // const API_BASE =
+  // typeof window !== "undefined"
+  //   ? window.ENV?.VITE_API_URL
+  //   : process.env.VITE_API_URL || "http://localhost:5000";
 
-  fetch(`${API_BASE}/api/profile`, {
+  fetch(`/api/profile`, {
     headers: { Authorization: `Bearer ${token}` },
   })
     .then((res) => res.json())

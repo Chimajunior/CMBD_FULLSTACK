@@ -14,10 +14,10 @@ import RatingsOnlyGrid from "../components/profile/RatingsOnlyGrid";
 import MovieCard from "../components/MovieCard";
 import ActivityComingSoon from "../components/profile/activity";
 
-const API_BASE =
-  typeof window !== "undefined"
-    ? window.ENV?.VITE_API_URL
-    : process.env.VITE_API_URL || "http://localhost:5000";
+// const API_BASE =
+//   typeof window !== "undefined"
+//     ? window.ENV?.VITE_API_URL
+//     : process.env.VITE_API_URL || "http://localhost:5000";
 
 
 export default function ProfilePage() {
@@ -42,7 +42,7 @@ export default function ProfilePage() {
 
   // fetch profile
   const fetchProfile = async () => {
-    const res = await fetch(`${API_BASE}/api/profile`, {
+    const res = await fetch(`/api/profile`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await res.json();
@@ -53,7 +53,7 @@ export default function ProfilePage() {
   const fetchRecommendations = async () => {
     try {
       setLoadingRec(true);
-      const res = await fetch(`${API_BASE}/api/recommendations/hybrid`, {
+      const res = await fetch(`/api/recommendations/hybrid`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       const data = await res.json();
@@ -72,7 +72,7 @@ export default function ProfilePage() {
 
   // delete review
   const deleteReview = async (id) => {
-    await fetch(`${API_BASE}/api/reviews/${id}`, {
+    await fetch(`/api/reviews/${id}`, {
       method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -82,7 +82,7 @@ export default function ProfilePage() {
 
   // update review
   const updateReview = async (rev) => {
-    const res = await fetch(`${API_BASE}/api/reviews/${rev.id}`, {
+    const res = await fetch(`/api/reviews/${rev.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

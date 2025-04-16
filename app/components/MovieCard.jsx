@@ -18,14 +18,14 @@ export default function MovieCard({ id, title, imageUrl, onWatchlistChange }) {
   useEffect(() => {
     if (!id) return;
   
-    const API_BASE =
-    typeof window !== "undefined"
-      ? window.ENV?.VITE_API_URL
-      : process.env.VITE_API_URL || "http://localhost:5000";
+    // const API_BASE =
+    // typeof window !== "undefined"
+    //   ? window.ENV?.VITE_API_URL
+    //   : process.env.VITE_API_URL || "http://localhost:5000";
       
     const fetchMovieData = async () => {
       try {
-        const res = await fetch(`${API_BASE}/api/movies/${id}`);
+        const res = await fetch(`/api/movies/${id}`);
         const data = await res.json();
         const parsed = parseFloat(data.avg_rating);
         setAvgRating(!isNaN(parsed) ? parsed : 0);

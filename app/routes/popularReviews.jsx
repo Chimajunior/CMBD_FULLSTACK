@@ -12,12 +12,12 @@ export default function PopularReviewsPage() {
 
 
 useEffect(() => {
-  const API_BASE =
-  typeof window !== "undefined"
-    ? window.ENV?.VITE_API_URL
-    : process.env.VITE_API_URL || "http://localhost:5000";
+  // const API_BASE =
+  // typeof window !== "undefined"
+  //   ? window.ENV?.VITE_API_URL
+  //   : process.env.VITE_API_URL || "http://localhost:5000";
   
-    fetch(`${API_BASE}/api/reviews`)
+    fetch(`/api/reviews`)
       .then((res) => res.json())
       .then((data) => {
         const sorted = [...(Array.isArray(data) ? data : [])].sort(

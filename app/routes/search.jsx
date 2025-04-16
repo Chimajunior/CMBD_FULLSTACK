@@ -14,9 +14,9 @@ export const loader = async ({ request }) => {
     return json({ results: [], error: "No search query provided." });
   }
 
-  const API_BASE = process.env.VITE_API_URL || "http://localhost:5000" ; 
+  // const API_BASE = process.env.VITE_API_URL || "http://localhost:5000" ; 
 
-  const res = await fetch(`${API_BASE}/api/search?query=${encodeURIComponent(query)}`);
+  const res = await fetch(`/api/search?query=${encodeURIComponent(query)}`);
   const data = await res.json();
 
   if (!res.ok) {

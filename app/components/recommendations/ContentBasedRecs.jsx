@@ -13,12 +13,9 @@ export default function ContentBasedRecs() {
   
     const fetchContentBased = async () => {
       try {
-        const API_BASE =
-        typeof window !== "undefined"
-          ? window.ENV?.VITE_API_URL
-          : process.env.VITE_API_URL || "http://localhost:5000";
+        
           
-        const res = await fetch(`${API_BASE}/api/recommendations/content-based`, {
+        const res = await fetch(`/api/recommendations/content-based`, {
           headers: { Authorization: `Bearer ${token}` },
         });
   

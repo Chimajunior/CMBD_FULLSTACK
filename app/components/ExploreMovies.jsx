@@ -14,9 +14,8 @@ export default function ExploreMoviesSection() {
 
   useEffect(() => {
     const fetchMovies = async () => {
-      const API_BASE = import.meta.env.VITE_API_URL;
   
-      const res = await fetch(`${API_BASE}/api/movies?page=2&limit=20`);
+      const res = await fetch(`/api/movies?page=2&limit=20`);
       const data = await res.json();
       setMovies(data.movies || []);
     };

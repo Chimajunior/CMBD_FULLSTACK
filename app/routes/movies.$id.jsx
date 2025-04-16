@@ -17,29 +17,30 @@ import {
   ChevronRight,
 } from "lucide-react";
 
-const API_BASE =
-  typeof window !== "undefined"
-    ? window.ENV?.VITE_API_URL
-    : process.env.VITE_API_URL || "http://localhost:5000";
+// const API_BASE =
+//   typeof window !== "undefined"
+//     ? window.ENV?.VITE_API_URL
+//     : process.env.VITE_API_URL || "http://localhost:5000";
+
 export const loader = async ({ params, request }) => {
   const token = request.headers.get("Authorization");
-  const API_BASE = process.env.VITE_API_URL || "http://localhost:5000";
+  // const API_BASE = process.env.VITE_API_URL || "http://localhost:5000";
 
-  const res = await fetch(`${API_BASE}/api/movies/${params.id}`);
+  const res = await fetch(`/api/movies/${params.id}`);
   if (!res.ok) throw new Response("Movie not found", { status: 404 });
   const movie = await res.json();
 
-  const reviewRes = await fetch(`${API_BASE}/api/reviews/${params.id}`);
+  const reviewRes = await fetch(`/api/reviews/${params.id}`);
   const reviews = await reviewRes.json();
 
-  const similarRes = await fetch(`${API_BASE}/api/movies/${params.id}/similar`);
+  const similarRes = await fetch(`/api/movies/${params.id}/similar`);
   const similar = await similarRes.json();
 
   let myRating = 0;
 
   if (token) {
     try {
-      const profileRes = await fetch(`${API_BASE}/api/profile`, {
+      const profileRes = await fetch(`/api/profile`, {
         headers: { Authorization: token },
       });
       const profileData = await profileRes.json();
@@ -77,20 +78,20 @@ export default function MovieDetail() {
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const res = await fetch(`${API_BASE}/api/movies/${id}`);
+        const res = await fetch(`/api/movies/${id}`);
         const movie = await res.json();
 
-        const reviewRes = await fetch(`${API_BASE}/api/reviews/${id}`);
+        const reviewRes = await fetch(`/api/reviews/${id}`);
         const reviews = await reviewRes.json();
 
-        const similarRes = await fetch(`${API_BASE}/api/movies/${id}/similar`);
+        const similarRes = await fetch(`/api/movies/${id}/similar`);
         const similar = await similarRes.json();
 
         const token = localStorage.getItem("token");
         let ratingFromProfile = 0;
 
         if (token) {
-          const profileRes = await fetch(`${API_BASE}/api/profile`, {
+          const profileRes = await fetch(`/api/profile`, {
             headers: { Authorization: `Bearer ${token}` },
           });
           const profileData = await profileRes.json();
@@ -143,7 +144,7 @@ export default function MovieDetail() {
     if (!token) return (window.location.href = "/login");
 
     try {
-      const res = await fetch(`${API_BASE}/api/watchlist/toggle`, {
+      const res = await fetch(`/api/watchlist/toggle`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -162,14 +163,14 @@ export default function MovieDetail() {
   };
 
   const fetchLatestMovie = async () => {
-    const res = await fetch(`${API_BASE}/api/movies/${movieData.id}`);
+    const res = await fetch(`/api/movies/${movieData.id}`);
     const updated = await res.json();
     setMovieData((prev) => ({ ...prev, avg_rating: updated.avg_rating }));
   };
 
   const fetchLatestReviews = async () => {
     try {
-      const res = await fetch(`${API_BASE}/api/reviews/${movieData.id}`);
+      const res = await fetch(`/api/reviews/${movieData.id}`);
       const data = await res.json();
       setShowReviews(data);
     } catch (err) {

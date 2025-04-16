@@ -6,10 +6,10 @@ import UserDropdown from "./nav/UserDropdown";
 import MobileMenu from "./nav/MobileMenu";
 import useSearchSuggestions from "../hooks/useSearchSuggestions";
 
-const API_BASE =
-  typeof window !== "undefined"
-    ? window.ENV?.VITE_API_URL
-    : process.env.VITE_API_URL || "http://localhost:5000";
+// const API_BASE =
+//   typeof window !== "undefined"
+//     ? window.ENV?.VITE_API_URL
+//     : process.env.VITE_API_URL || "http://localhost:5000";
 
 const Navbar = () => {
   const location = useLocation();
@@ -30,7 +30,7 @@ const Navbar = () => {
     setHighlighted,
     handleSearch,
     handleKeyDown,
-  } = useSearchSuggestions(API_BASE);
+  } = useSearchSuggestions();
 
   const highlightMatch = (text) => {
     const regex = new RegExp(`(${query})`, "gi");
@@ -46,7 +46,7 @@ const Navbar = () => {
     const token = localStorage.getItem("token");
     if (!token) return;
 
-    fetch(`${API_BASE}/api/profile`, {
+    fetch(`/api/profile`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

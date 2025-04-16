@@ -13,15 +13,8 @@ import stylesheet from './tailwind.css';
 import TokenHandler from "./components/TokenHandler";
 import ErrorPage from "./components/errors/ErrorPage";
 import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
 
-export function loader() {
-  return json({
-    ENV: {
-      VITE_API_URL: process.env.VITE_API_URL,
-    },
-  });
-}
+
 
 
 export function links() {
@@ -29,7 +22,6 @@ export function links() {
 }
 
 export function Layout({ children }) {
-  const data = useLoaderData();
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -43,11 +35,7 @@ export function Layout({ children }) {
         {children}
         <ScrollRestoration />
         <Scripts />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.ENV = ${JSON.stringify(data.ENV)};`,
-          }}
-        />
+       
       </body>
     </html>
   );

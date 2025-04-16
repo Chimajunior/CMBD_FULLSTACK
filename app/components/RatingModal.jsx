@@ -31,17 +31,17 @@ export default function RatingModal({
 
 
 
-  const API_BASE =
-  typeof window !== "undefined"
-    ? window.ENV?.VITE_API_URL
-    : process.env.VITE_API_URL || "http://localhost:5000";
+  // const API_BASE =
+  // typeof window !== "undefined"
+  //   ? window.ENV?.VITE_API_URL
+  //   : process.env.VITE_API_URL || "http://localhost:5000";
   
 const handleSubmit = async () => {
   const token = localStorage.getItem("token");
   if (!token) return navigate(`/login?redirectTo=/movies/${movie.id}`);
 
   try {
-    const res = await fetch(`${API_BASE}/api/reviews`, {
+    const res = await fetch(`/api/reviews`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -71,7 +71,7 @@ const handleRemove = async () => {
 
   try {
     const res = await fetch(
-      `${API_BASE}/api/reviews/movie/${movie.id}/user`,
+      `/api/reviews/movie/${movie.id}/user`,
       {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },

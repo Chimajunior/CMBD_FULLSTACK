@@ -29,13 +29,13 @@ export default function ReviewForm({
 
 
 
-    const API_BASE =
-    typeof window !== "undefined"
-      ? window.ENV?.VITE_API_URL
-      : process.env.VITE_API_URL || "http://localhost:5000";
+    // const API_BASE =
+    // typeof window !== "undefined"
+    //   ? window.ENV?.VITE_API_URL
+    //   : process.env.VITE_API_URL || "http://localhost:5000";
     
     try {
-      const res = await fetch(`${API_BASE}/api/reviews`, {
+      const res = await fetch(`/api/reviews`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

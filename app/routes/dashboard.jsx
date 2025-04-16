@@ -30,10 +30,10 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
 
 
-const API_BASE =
-    typeof window !== "undefined"
-      ? window.ENV?.VITE_API_URL
-      : process.env.VITE_API_URL || "http://localhost:5000";
+// const API_BASE =
+//     typeof window !== "undefined"
+//       ? window.ENV?.VITE_API_URL
+//       : process.env.VITE_API_URL || "http://localhost:5000";
     
   // Load token
   useEffect(() => {
@@ -98,14 +98,14 @@ const API_BASE =
 useEffect(() => {
     if (!token) return;
   
-    fetch(`${API_BASE}/api/movies`, {
+    fetch(`/api/movies`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
       .then((data) => setMovies(data.movies || []))
       .catch(() => toast.error("Failed to load movies"));
   
-    fetch(`${API_BASE}/api/users`, {
+    fetch(`/api/users`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())
@@ -116,7 +116,7 @@ useEffect(() => {
   }, [token]);
   
   const fetchFlaggedReviews = () => {
-    fetch(`${API_BASE}/api/reviews/flagged/all`, {
+    fetch(`/api/reviews/flagged/all`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => {
@@ -141,7 +141,7 @@ useEffect(() => {
   const handleDelete = async (id) => {
     if (!window.confirm("Delete movie?")) return;
     try {
-      await fetch(`${API_BASE}/api/movies/${id}`, {
+      await fetch(`/api/movies/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -155,7 +155,7 @@ useEffect(() => {
 //   Approve Review
   const handleApproveReview = async (id) => {
     try {
-      const res = await fetch(`${API_BASE}/api/reviews/${id}/approve`, {
+      const res = await fetch(`/api/reviews/${id}/approve`, {
         method: "PUT",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -175,7 +175,7 @@ useEffect(() => {
   const handleDeleteReview = async (id) => {
     if (!window.confirm("Delete this review?")) return;
     try {
-      await fetch(`${API_BASE}/api/reviews/${id}`, {
+      await fetch(`/api/reviews/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -190,7 +190,7 @@ useEffect(() => {
   const handleDeleteUser = async (id) => {
     if (!window.confirm("Delete this user?")) return;
     try {
-      await fetch(`${API_BASE}/api/users/${id}`, {
+      await fetch(`/api/users/${id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });

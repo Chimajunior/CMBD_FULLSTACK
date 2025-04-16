@@ -44,13 +44,13 @@ export function SignupForm({ className, ...props }) {
       return;
     }
 
-    const API_BASE =
-    typeof window !== "undefined"
-      ? window.ENV?.VITE_API_URL
-      : process.env.VITE_API_URL || "http://localhost:5000";
+    // const API_BASE =
+    // typeof window !== "undefined"
+    //   ? window.ENV?.VITE_API_URL
+    //   : process.env.VITE_API_URL || "http://localhost:5000";
     
 setLoading(true);
-const res = await fetch(`${API_BASE}/api/auth/register`, {
+const res = await fetch(`/api/auth/register`, {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({ username, email, password }),

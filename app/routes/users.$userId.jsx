@@ -26,7 +26,6 @@ export const loader = async ({ params, request }) => {
       );
       loggedInUserId = payload.id;
     } catch {
-      // silently ignore token parse errors
     }
   }
 
@@ -34,12 +33,12 @@ export const loader = async ({ params, request }) => {
     return redirect("/profile");
   }
 
-  const API_BASE =
-  typeof window !== "undefined"
-    ? window.ENV?.VITE_API_URL
-    : process.env.VITE_API_URL || "http://localhost:5000";
+  // const API_BASE =
+  // typeof window !== "undefined"
+  //   ? window.ENV?.VITE_API_URL
+  //   : process.env.VITE_API_URL || "http://localhost:5000";
 
-  const res = await fetch(`${API_BASE}/api/users/${params.userId}`);
+  const res = await fetch(`/api/users/${params.userId}`);
   if (!res.ok) {
     throw new Response("User not found", { status: 404 });
   }

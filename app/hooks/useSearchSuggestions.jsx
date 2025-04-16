@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "@remix-run/react";
 
-export default function useSearchSuggestions(apiBase) {
+export default function useSearchSuggestions() {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState([]);
   const [highlighted, setHighlighted] = useState(-1);
@@ -32,7 +32,7 @@ export default function useSearchSuggestions(apiBase) {
 
     setLoading(true);
     debounceRef.current = setTimeout(() => {
-      fetch(`${apiBase}/api/search/suggestions?q=${encodeURIComponent(val)}`)
+      fetch(`/api/search/suggestions?q=${encodeURIComponent(val)}`)
         .then((res) => res.json())
         .then((data) => setResults(data || []))
         .finally(() => setLoading(false));

@@ -40,11 +40,11 @@ export default function MoviesPage() {
   useEffect(() => {
     const fetchMovies = async () => {
       try {
-        const API_BASE =
-        typeof window !== "undefined"
-          ? window.ENV?.VITE_API_URL
-          : process.env.VITE_API_URL || "http://localhost:5000";
-              console.log("API Base:", API_BASE);
+        // const API_BASE =
+        // typeof window !== "undefined"
+        //   ? window.ENV?.VITE_API_URL
+        //   : process.env.VITE_API_URL || "http://localhost:5000";
+        //       console.log("API Base:", API_BASE);
     
         const params = new URLSearchParams({ page, limit, sortBy, order });
         if (genre) params.append("genre", genre);
@@ -52,7 +52,7 @@ export default function MoviesPage() {
         if (query) params.append("title", query);
     
         const res = await fetch(
-          `${API_BASE}/api/movies?${params.toString()}`
+          `/api/movies?${params.toString()}`
         );
         const data = await res.json();
         if (data.movies && Array.isArray(data.movies)) {

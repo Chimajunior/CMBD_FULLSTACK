@@ -17,10 +17,10 @@ export default function ReviewForm({ movieId, onReviewSubmit, initialRating }) {
 
 
 
-  const API_BASE =
-  typeof window !== "undefined"
-    ? window.ENV?.VITE_API_URL
-    : process.env.VITE_API_URL || "http://localhost:5000";
+  // const API_BASE =
+  // typeof window !== "undefined"
+  //   ? window.ENV?.VITE_API_URL
+  //   : process.env.VITE_API_URL || "http://localhost:5000";
   
 const handleSubmit = async (e) => {
   e.preventDefault();
@@ -34,7 +34,7 @@ const handleSubmit = async (e) => {
 
   setSubmitting(true);
   try {
-    const res = await fetch(`${API_BASE}/api/reviews`, {
+    const res = await fetch(`/api/reviews`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -46,7 +46,7 @@ const handleSubmit = async (e) => {
     const data = await res.json();
     if (!res.ok) throw new Error(data.message || "Review submission failed.");
 
-    setToast("✅ Review submitted!");
+    setToast(" Review submitted!");
     setRating(0);
     setReview("");
     if (onReviewSubmit) onReviewSubmit();
