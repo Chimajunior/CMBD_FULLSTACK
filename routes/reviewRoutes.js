@@ -2,7 +2,7 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 import pool from '../db/index.js'; 
 const router = express.Router();
-const sendEmail = require('../utils/sendEmail');
+import sendEmail from '../utils/sendEmail.js';
 
 // Middleware
 const authenticateUser = (req, res, next) => {
