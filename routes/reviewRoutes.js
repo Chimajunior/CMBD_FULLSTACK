@@ -1,6 +1,6 @@
-const express = require("express");
-const pool = require("../db");
-const jwt = require("jsonwebtoken");
+import express from 'express';
+import jwt from 'jsonwebtoken';
+import pool from '../db/index.js'; 
 const router = express.Router();
 const sendEmail = require('../utils/sendEmail');
 
@@ -490,5 +490,5 @@ router.get("/:movie_id", authenticateOptional, async (req, res) => {
   }
 });
 
-// Export the router
-module.exports = router;
+export default router;
+

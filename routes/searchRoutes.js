@@ -1,8 +1,5 @@
-
-
-const express = require('express');
-
-const pool = require('../db');
+import express from 'express';
+import pool from '../db/index.js'; 
 const router = express.Router();
 
 // Search and Filter Movies 
@@ -108,4 +105,4 @@ router.get("/", async (req, res) => {
   
   
 
-module.exports = router;
+  export default router;

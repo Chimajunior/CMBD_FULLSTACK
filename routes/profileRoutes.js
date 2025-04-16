@@ -1,8 +1,8 @@
-const express = require("express");
-const router = express.Router();
-const jwt = require("jsonwebtoken");
-const pool = require("../db");
+import express from 'express';
+import jwt from 'jsonwebtoken';
+import pool from '../db/index.js'; 
 
+const router = express.Router();
 // Middleware to authenticate user
 const authenticateUser = (req, res, next) => {
   const authHeader = req.header("Authorization");
@@ -132,4 +132,4 @@ router.put("/", authenticateUser, async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

@@ -1,6 +1,6 @@
-const express = require('express');
-const pool = require('../db');
-const jwt = require('jsonwebtoken');
+import express from 'express';
+import jwt from 'jsonwebtoken';
+import pool from '../db/index.js'; 
 const router = express.Router();
 
 // Middleware to Authenticate Users
@@ -210,8 +210,9 @@ router.get('/hybrid', authenticateUser, async (req, res) => {
     }
   });
   
+  export default router;
 
-
+  
 // // Hybrid Recommendation Route with Cold-Start Fallback
 // router.get('/hybrid', authenticateUser, async (req, res) => {
 //     const user_id = req.user.id;
@@ -315,4 +316,4 @@ router.get('/hybrid', authenticateUser, async (req, res) => {
   
   
 
-  module.exports = router;
+
