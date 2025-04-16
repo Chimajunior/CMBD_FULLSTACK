@@ -7,7 +7,9 @@ import {
   useRouteError,
   isRouteErrorResponse,
 } from "@remix-run/react";
-import styles from "./tailwind.css";
+
+
+import stylesheet from './tailwind.css';
 import TokenHandler from "./components/TokenHandler";
 import ErrorPage from "./components/errors/ErrorPage";
 import { json } from "@remix-run/node";
@@ -22,9 +24,9 @@ export function loader() {
 }
 
 
-export const links = () => [
-  { rel: "stylesheet", href: styles },
-];
+export function links() {
+  return [{ rel: 'stylesheet', href: stylesheet }];
+}
 
 export function Layout({ children }) {
   const data = useLoaderData();
