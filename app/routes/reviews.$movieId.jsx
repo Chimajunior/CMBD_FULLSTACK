@@ -12,7 +12,6 @@ import ReviewCard from "../components/ReviewCard";
 //     : process.env.VITE_API_URL || "http://localhost:5000";
 
 
-import { json } from "@remix-run/node";
 
 export const loader = async ({ params, request }) => {
   const { movieId } = params;
