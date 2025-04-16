@@ -1,0 +1,45 @@
+{
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/.server/**/*.ts",
+    "**/.server/**/*.tsx",
+    "**/.client/**/*.ts",
+    "**/.client/**/*.tsx",
+    "app/lib/utils.jsx",
+    "app/components/ui/button.jsx",
+    "app/components/ui/card.jsx",
+    "app/components/ui/label.jsx",
+    "app/components/ui/input.jsx",
+    "app/components/LoginForm.jsx",
+    "app/routes/_index.jsx",
+    "app/routes/movie-details.jsx",
+    "app/components/MovieCard.jsx",
+    "app/components/MovieForm.jsx",
+    "app/routes/reviews/$movieId.jsx",
+    "app/root.jsx",
+    "tailwind.config.js",
+    "vite.config.js"
+  ],
+  "compilerOptions": {
+    "lib": ["DOM", "DOM.Iterable", "ES2022"],
+    "types": ["@remix-run/node", "vite/client"],
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "target": "ES2022",
+    "strict": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./app/*"]
+    },
+
+    "noEmit": true
+  }
+}
