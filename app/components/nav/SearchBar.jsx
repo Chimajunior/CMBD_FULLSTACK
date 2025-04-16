@@ -61,7 +61,7 @@ export default function SearchBar({
         setHighlighted(-1);
       }}
     >
-      <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-yellow-700 pointer-events-none" />
+      <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-yellow-700 pointer-events-none" />
       <input
         type="search"
         name="q"
@@ -69,16 +69,16 @@ export default function SearchBar({
         onChange={(e) => handleSearch(e.target.value)}
         onKeyDown={handleKeyDown}
         placeholder="Search movies..."
-        className="w-full pl-10 pr-10 py-2 rounded-lg bg-[#FFE38C] text-black placeholder-yellow-700 font-medium outline-none focus:ring-2 focus:ring-yellow-400"
+        className="w-full pl-10 pr-10 py-2.5 rounded-lg bg-[#FFE38C] text-black placeholder-yellow-700 font-medium outline-none focus:ring-2 focus:ring-yellow-400"
       />
       {loading && (
-        <Loader2 className="absolute right-6 top-1/2 transform -translate-y-1/2 animate-spin text-yellow-700" />
+        <Loader2 className="absolute right-3 top-1/2 -translate-y-1/2 animate-spin text-yellow-700" />
       )}
       {query && !loading && (
         <button
           type="button"
           onClick={() => setQuery("")}
-          className="absolute right-6 top-1/2 transform -translate-y-1/2 text-yellow-800"
+          className="absolute right-3 top-1/2 transform -translate-y-1/2 text-yellow-800"
         >
           <X size={18} />
         </button>

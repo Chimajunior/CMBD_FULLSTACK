@@ -74,80 +74,81 @@ const Navbar = () => {
 
   return (
     <header className="w-full bg-[#121212] text-white shadow-md top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[80px] flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="text-2xl font-bold">
-          CMBD
-        </Link>
-
-        {/* Search (shared desktop + mobile version) */}
-        <SearchBar
-          query={query}
-          setQuery={setQuery}
-          results={results}
-          setResults={setResults}
-          loading={loading}
-          highlighted={highlighted}
-          setHighlighted={setHighlighted}
-          handleSearch={handleSearch}
-          handleKeyDown={handleKeyDown}
-          highlightMatch={highlightMatch}
-        />
-
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-6">
-          <Link
-            to="/"
-            className={`hover:text-yellow-400 transition ${
-              isActive("/") ? "text-yellow-400 font-semibold" : ""
-            }`}
-          >
-            Home
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+        {/* Top Row: Logo + Nav + Hamburger */}
+        <div className="w-full flex items-center justify-between">
+          <Link to="/" className="text-2xl font-bold">
+            CMBD
           </Link>
-          <Link
-            to="/moviesPage"
-            className={`hover:text-yellow-400 transition ${
-              isActive("/moviesPage") ? "text-yellow-400 font-semibold" : ""
-            }`}
-          >
-            Movies
-          </Link>
-          <button
-            onClick={handleWatchlistRedirect}
-            className="hover:text-yellow-400 transition flex items-center gap-1"
-          >
-            <PlusCircle size={16} className="text-yellow-400 mr-1" />
-            Watchlist
-          </button>
 
-          {!user ? (
+          <div className="hidden md:flex items-center gap-6">
             <Link
-              to="/login"
-              className="bg-white text-black px-4 py-2 rounded-xl hover:bg-black hover:text-white transition"
+              to="/"
+              className={`hover:text-yellow-400 transition ${
+                isActive("/") ? "text-yellow-400 font-semibold" : ""
+              }`}
             >
-              Login
+              Home
             </Link>
-          ) : (
-            <UserDropdown
-              user={user}
-              onLogout={handleLogout}
-              dropdownOpen={dropdownOpen}
-              toggle={() => setDropdownOpen((prev) => !prev)}
-              dropdownRef={dropdownRef}
-            />
-          )}
+            <Link
+              to="/moviesPage"
+              className={`hover:text-yellow-400 transition ${
+                isActive("/moviesPage") ? "text-yellow-400 font-semibold" : ""
+              }`}
+            >
+              Movies
+            </Link>
+            <button
+              onClick={handleWatchlistRedirect}
+              className="hover:text-yellow-400 transition flex items-center gap-1"
+            >
+              <PlusCircle size={16} className="text-yellow-400 mr-1" />
+              Watchlist
+            </button>
+
+            {!user ? (
+              <Link
+                to="/login"
+                className="bg-white text-black px-4 py-2 rounded-xl hover:bg-black hover:text-white transition"
+              >
+                Login
+              </Link>
+            ) : (
+              <UserDropdown
+                user={user}
+                onLogout={handleLogout}
+                dropdownOpen={dropdownOpen}
+                toggle={() => setDropdownOpen((prev) => !prev)}
+                dropdownRef={dropdownRef}
+              />
+            )}
+          </div>
+
+          {/* Hamburger */}
+          <button
+            className="md:hidden focus:outline-none"
+            onClick={() => setMobileMenuOpen((prev) => !prev)}
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
 
-        {/* Hamburger */}
-        <button
-          className="md:hidden focus:outline-none"
-          onClick={() => setMobileMenuOpen((prev) => !prev)}
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {/* Search (one shared component under nav on mobile, inline on desktop) */}
+        <div className="w-full">
+          <SearchBar
+            query={query}
+            setQuery={setQuery}
+            results={results}
+            setResults={setResults}
+            loading={loading}
+            highlighted={highlighted}
+            setHighlighted={setHighlighted}
+            handleSearch={handleSearch}
+            handleKeyDown={handleKeyDown}
+            highlightMatch={highlightMatch}
+          />
+        </div>
       </div>
-
-      {/*  Removed hardcoded mobile search bar here */}
 
       {/* Mobile Menu */}
       <MobileMenu
@@ -161,7 +162,6 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
 
 // import { Link, useLocation, useNavigate } from "@remix-run/react";
 // import { useEffect, useRef, useState } from "react";
