@@ -46,13 +46,13 @@ export default function HeroSlider() {
         {/* Arrows */}
         <button
           onClick={goPrev}
-          className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 border border-white hover:bg-white hover:text-black rounded-full transition z-20"
+          className="hidden md:block absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 border border-white hover:bg-white hover:text-black rounded-full transition z-20"
         >
           <ChevronLeft size={24} />
         </button>
         <button
           onClick={goNext}
-          className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 border border-white hover:bg-white hover:text-black rounded-full transition z-20"
+          className="hidden md:block absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 text-white p-2 border border-white hover:bg-white hover:text-black rounded-full transition z-20"
         >
           <ChevronRight size={24} />
         </button>
