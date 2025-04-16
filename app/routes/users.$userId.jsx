@@ -38,7 +38,10 @@ export const loader = async ({ params, request }) => {
   //   ? window.ENV?.VITE_API_URL
   //   : process.env.VITE_API_URL || "http://localhost:5000";
 
-  const res = await fetch(`/api/users/${params.userId}`);
+  const url = new URL(request.url);
+  const origin = url.origin
+
+  const res = await fetch(`${origin}/api/users/${params.userId}`);
   if (!res.ok) {
     throw new Response("User not found", { status: 404 });
   }

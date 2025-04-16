@@ -25,8 +25,10 @@ import {
 export const loader = async ({ params, request }) => {
   const token = request.headers.get("Authorization");
   // const API_BASE = process.env.VITE_API_URL || "http://localhost:5000";
+  const url = new URL(request.url);
+  const origin = url.origin
 
-  const res = await fetch(`/api/movies/${params.id}`);
+  const res = await fetch(`${origin}/api/movies/${params.id}`);
   if (!res.ok) throw new Response("Movie not found", { status: 404 });
   const movie = await res.json();
 
