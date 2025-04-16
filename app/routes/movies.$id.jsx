@@ -22,27 +22,30 @@ import {
 //     ? window.ENV?.VITE_API_URL
 //     : process.env.VITE_API_URL || "http://localhost:5000";
 
+import { json } from "@remix-run/node";
+
 export const loader = async ({ params, request }) => {
   const token = request.headers.get("Authorization");
-  // const API_BASE = process.env.VITE_API_URL || "http://localhost:5000";
-  const url = new URL(request.url);
-  const origin = url.origin
+  const origin = new URL(request.url).origin;
 
+  // Movie details
   const res = await fetch(`${origin}/api/movies/${params.id}`);
   if (!res.ok) throw new Response("Movie not found", { status: 404 });
   const movie = await res.json();
 
-  const reviewRes = await fetch(`/api/reviews/${params.id}`);
+  // Reviews
+  const reviewRes = await fetch(`${origin}/api/reviews/${params.id}`);
   const reviews = await reviewRes.json();
 
-  const similarRes = await fetch(`/api/movies/${params.id}/similar`);
+  // Similar movies
+  const similarRes = await fetch(`${origin}/api/movies/${params.id}/similar`);
   const similar = await similarRes.json();
 
   let myRating = 0;
 
   if (token) {
     try {
-      const profileRes = await fetch(`/api/profile`, {
+      const profileRes = await fetch(`${origin}/api/profile`, {
         headers: { Authorization: token },
       });
       const profileData = await profileRes.json();
@@ -56,11 +59,13 @@ export const loader = async ({ params, request }) => {
 
       if (foundReview) myRating = foundReview.rating;
       else if (foundRatingOnly) myRating = foundRatingOnly.rating;
-    } catch (_) {}
+    } catch (_) {
+    }
   }
 
   return json({ ...movie, reviews, similar, myRating });
 };
+
 
 export default function MovieDetail() {
   const initialMovie = useLoaderData();

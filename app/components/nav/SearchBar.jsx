@@ -81,10 +81,10 @@ export default function SearchBar({
 
       {/* Mobile Search */}
       <div className="relative w-full px-4 pb-3 md:hidden">
-        <form method="get" className="relative w-full">
-          {/* Search icon */}
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-700 pointer-events-none" />
+      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-700 pointer-events-none" />
 
+        <form method="get" className="relative w-full">
+          {/* <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-yellow-700" /> */}
           <input
             type="search"
             name="q"
@@ -92,10 +92,8 @@ export default function SearchBar({
             onChange={(e) => handleSearch(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Search movies..."
-            className="w-full pl-10 pr-10 py-2 rounded-lg bg-[#FFE38C] text-black placeholder-yellow-700 font-medium outline-none focus:ring-2 focus:ring-yellow-400"
+            className="w-full pl-10 pr-4 py-2 rounded-lg bg-[#FFE38C] text-black placeholder-yellow-700 font-medium outline-none focus:ring-2 focus:ring-yellow-400"
           />
-
-          {/* Clear (X) button */}
           {query && (
             <button
               type="button"
@@ -111,6 +109,7 @@ export default function SearchBar({
     </>
   );
 }
+
 
 // import { Form, Link } from "@remix-run/react";
 // import { Search, Loader2 } from "lucide-react";

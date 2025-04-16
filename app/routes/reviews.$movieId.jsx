@@ -12,25 +12,28 @@ import ReviewCard from "../components/ReviewCard";
 //     : process.env.VITE_API_URL || "http://localhost:5000";
 
 
+import { json } from "@remix-run/node";
+
 export const loader = async ({ params, request }) => {
   const { movieId } = params;
   const token = request.headers.get("Authorization");
-  // const API_BASE = process.env.VITE_API_URL;
 
-  const url = new URL(request.url);
-  const origin = url.origin; 
+  const origin = new URL(request.url).origin;
 
+  // Fetch movie
   const movieRes = await fetch(`${origin}/api/movies/${movieId}`);
   if (!movieRes.ok) throw new Response("Movie not found", { status: 404 });
   const movie = await movieRes.json();
 
-  const reviewsRes = await fetch(`/api/reviews/${movieId}`, {
+  // Fetch reviews
+  const reviewsRes = await fetch(`${origin}/api/reviews/${movieId}`, {
     headers: token ? { Authorization: token } : {},
   });
   const reviews = await reviewsRes.json();
 
   return json({ movie, reviews });
 };
+
 
 export default function ReviewsPage() {
   const { movie, reviews: initialReviews } = useLoaderData();
