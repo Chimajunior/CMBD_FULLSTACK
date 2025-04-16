@@ -27,18 +27,15 @@ export default function Index() {
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
   
-    const API_BASE =
-    typeof window !== "undefined"
-      ? window.ENV?.VITE_API_URL
-      : process.env.VITE_API_URL || "http://localhost:5000";
+    
       
     const fetchAll = async () => {
       try {
         const [trending, popular, community, reviews] = await Promise.all([
-          fetch(`${API_BASE}/api/movies?sort=trending&limit=10`).then((res) => res.json()),
-          fetch(`${API_BASE}/api/movies?sort=popular&limit=10`).then((res) => res.json()),
-          fetch(`${API_BASE}/api/movies?sort=community&limit=10`).then((res) => res.json()),
-          fetch(`${API_BASE}/api/reviews`).then((res) => res.json()),
+          fetch(`/api/movies?sort=trending&limit=10`).then((res) => res.json()),
+          fetch(`/api/movies?sort=popular&limit=10`).then((res) => res.json()),
+          fetch(`/api/movies?sort=community&limit=10`).then((res) => res.json()),
+          fetch(`/api/reviews`).then((res) => res.json()),
         ]);
   
         setTrendingMovies(trending.movies || []);
@@ -51,7 +48,7 @@ export default function Index() {
         setPopularReviews(sortedReviews);
   
         if (token) {
-          const profileRes = await fetch(`${API_BASE}/api/profile`, {
+          const profileRes = await fetch(`/api/profile`, {
             headers: { Authorization: `Bearer ${token}` },
           }).then((res) => res.json());
   
