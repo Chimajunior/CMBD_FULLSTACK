@@ -65,10 +65,10 @@ export default function MovieCard({ id, title, imageUrl, onWatchlistChange }) {
     const token = localStorage.getItem("token");
     if (!token) return navigate(`/login?redirectTo=/movies/${id}`);
   
-    const API_BASE = import.meta.env.VITE_API_URL;
+    // const API_BASE = import.meta.env.VITE_API_URL;
   
     try {
-      const res = await fetch(`${API_BASE}/api/watchlist/toggle`, {
+      const res = await fetch(`/api/watchlist/toggle`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

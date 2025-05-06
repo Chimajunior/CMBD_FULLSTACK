@@ -42,15 +42,29 @@ export default function ProfilePage() {
       const res = await fetch(`/api/profile`, {
         headers: { Authorization: `Bearer ${token}` },
       });
-      if (!res.ok) throw new Error("Profile fetch failed");
+  
+      if (!res.ok) {
+        const errText = await res.text();
+        console.error("Profile fetch failed:", res.status, errText);
+  
+        if (res.status === 401) {
+          setToast({ message: "Session expired. Please log in again.", type: "error" });
+          localStorage.removeItem("token");
+          setTimeout(() => window.location.href = "/login", 2000);
+          return;
+        }
+  
+        throw new Error("Failed to load profile: " + res.status);
+      }
+  
       const data = await res.json();
       setProfile(data);
     } catch (err) {
       console.error("Error loading profile:", err.message);
-      setToast({ message: "Session expired. Please log in again.", type: "error" });
-      setTimeout(() => window.location.href = "/login", 2000);
+      setToast({ message: "Could not load profile", type: "error" });
     }
   };
+  
 
   const fetchRecommendations = async () => {
     try {
