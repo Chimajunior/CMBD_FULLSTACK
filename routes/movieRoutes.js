@@ -1,6 +1,6 @@
-import express from 'express';
-import jwt from 'jsonwebtoken';
-import pool from '../db/index.js';
+import express from "express";
+import jwt from "jsonwebtoken";
+import pool from "../db/index.js";
 
 const router = express.Router();
 
@@ -11,7 +11,8 @@ const authenticateAdmin = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token.split(" ")[1], process.env.JWT_SECRET);
-    if (decoded.role !== 'admin') return res.status(403).json({ message: "Admins only" });
+    if (decoded.role !== "admin")
+      return res.status(403).json({ message: "Admins only" });
     next();
   } catch (error) {
     res.status(400).json({ message: "Invalid token" });
@@ -19,8 +20,9 @@ const authenticateAdmin = (req, res, next) => {
 };
 
 // Add Movie (Admin Only)
-router.post('/', authenticateAdmin, async (req, res) => {
-  const { title, genre, release_date, cast, poster_url, description } = req.body;
+router.post("/", authenticateAdmin, async (req, res) => {
+  const { title, genre, release_date, cast, poster_url, description } =
+    req.body;
 
   try {
     const [existing] = await pool.query(
@@ -45,27 +47,32 @@ router.post('/', authenticateAdmin, async (req, res) => {
 });
 
 // Get Movies with Pagination, Sorting, and Filtering
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
   try {
     let { page, limit, sort, sortBy, order, genre, year, title } = req.query;
     page = parseInt(page) || 1;
     limit = parseInt(limit) || 100;
     const offset = (page - 1) * limit;
 
-    if (sort === 'popular') {
-      sortBy = 'avg_rating';
-      order = 'DESC';
-    } else if (sort === 'trending') {
-      sortBy = 'release_date';
-      order = 'DESC';
-    } else if (sort === 'community') {
-      sortBy = 'review_count';
-      order = 'DESC';
+    if (sort === "popular") {
+      sortBy = "avg_rating";
+      order = "DESC";
+    } else if (sort === "trending") {
+      sortBy = "release_date";
+      order = "DESC";
+    } else if (sort === "community") {
+      sortBy = "review_count";
+      order = "DESC";
     }
 
-    const allowedSortFields = ['title', 'release_date', 'avg_rating', 'review_count'];
-    sortBy = allowedSortFields.includes(sortBy) ? sortBy : 'title';
-    order = order && order.toUpperCase() === 'DESC' ? 'DESC' : 'ASC';
+    const allowedSortFields = [
+      "title",
+      "release_date",
+      "avg_rating",
+      "review_count",
+    ];
+    sortBy = allowedSortFields.includes(sortBy) ? sortBy : "title";
+    order = order && order.toUpperCase() === "DESC" ? "DESC" : "ASC";
 
     const conditions = [];
     const values = [];
@@ -85,11 +92,12 @@ router.get('/', async (req, res) => {
       values.push(`%${title.toLowerCase()}%`);
     }
 
-    if (req.query.featured === 'true') {
+    if (req.query.featured === "true") {
       conditions.push("m.featured = 1");
     }
 
-    const whereClause = conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
+    const whereClause =
+      conditions.length > 0 ? `WHERE ${conditions.join(" AND ")}` : "";
 
     const [movies] = await pool.query(
       `SELECT m.*, 
@@ -113,9 +121,8 @@ router.get('/', async (req, res) => {
       page,
       totalPages: Math.ceil(total / limit),
       totalMovies: total,
-      movies
+      movies,
     });
-
   } catch (error) {
     console.error("Error fetching movies:", error.message);
     res.status(500).json({ error: "Server error. Please try again later." });
@@ -123,17 +130,19 @@ router.get('/', async (req, res) => {
 });
 
 // Update Movie (Admin Only)
-router.put('/:id', authenticateAdmin, async (req, res) => {
+router.put("/:id", authenticateAdmin, async (req, res) => {
   const { id } = req.params;
-  const { title, genre, release_date, cast, poster_url } = req.body;
+  const { title, genre, release_date, cast, poster_url, description } =
+    req.body;
 
   try {
     const [movie] = await pool.query("SELECT * FROM movies WHERE id = ?", [id]);
-    if (movie.length === 0) return res.status(404).json({ message: "Movie not found" });
+    if (movie.length === 0)
+      return res.status(404).json({ message: "Movie not found" });
 
     await pool.query(
-      "UPDATE movies SET title=?, genre=?, release_date=?, cast=?, poster_url=? WHERE id=?",
-      [title, genre, release_date, cast, poster_url, id]
+      "UPDATE movies SET title=?, genre=?, release_date=?, cast=?, poster_url=?, description=? WHERE id=?",
+      [title, genre, release_date, cast, poster_url, description, id]
     );
 
     res.json({ message: "Movie updated successfully" });
@@ -143,12 +152,13 @@ router.put('/:id', authenticateAdmin, async (req, res) => {
 });
 
 // Delete Movie (Admin Only)
-router.delete('/:id', authenticateAdmin, async (req, res) => {
+router.delete("/:id", authenticateAdmin, async (req, res) => {
   const { id } = req.params;
 
   try {
     const [movie] = await pool.query("SELECT * FROM movies WHERE id = ?", [id]);
-    if (movie.length === 0) return res.status(404).json({ message: "Movie not found" });
+    if (movie.length === 0)
+      return res.status(404).json({ message: "Movie not found" });
 
     await pool.query("DELETE FROM movies WHERE id = ?", [id]);
     res.json({ message: "Movie deleted successfully" });
@@ -158,7 +168,7 @@ router.delete('/:id', authenticateAdmin, async (req, res) => {
 });
 
 // Get a Specific Movie by ID
-router.get('/:id', async (req, res) => {
+router.get("/:id", async (req, res) => {
   let { id } = req.params;
   id = parseInt(id, 10);
   if (isNaN(id)) return res.status(400).json({ message: "Invalid movie ID" });
@@ -186,11 +196,14 @@ router.get('/:id', async (req, res) => {
 });
 
 // Get Similar Movies by Genre (excluding current movie)
-router.get('/:id/similar', async (req, res) => {
+router.get("/:id/similar", async (req, res) => {
   const { id } = req.params;
 
   try {
-    const [movieRows] = await pool.query("SELECT genre FROM movies WHERE id = ?", [id]);
+    const [movieRows] = await pool.query(
+      "SELECT genre FROM movies WHERE id = ?",
+      [id]
+    );
     if (movieRows.length === 0) {
       return res.status(404).json({ message: "Movie not found" });
     }
@@ -200,9 +213,9 @@ router.get('/:id/similar', async (req, res) => {
       return res.status(404).json({ message: "No genre data for this movie" });
     }
 
-    const genres = genreString.split(',').map(g => g.trim());
-    const genreConditions = genres.map(() => `genre LIKE ?`).join(' OR ');
-    const genreValues = genres.map(g => `%${g}%`);
+    const genres = genreString.split(",").map((g) => g.trim());
+    const genreConditions = genres.map(() => `genre LIKE ?`).join(" OR ");
+    const genreValues = genres.map((g) => `%${g}%`);
 
     const [similarMovies] = await pool.query(
       `SELECT * FROM movies WHERE (${genreConditions}) AND id != ? LIMIT 12`,

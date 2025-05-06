@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import bodyParser from 'body-parser';
+// import bodyParser from 'body-parser';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -26,7 +26,7 @@ const app = express();
 const isDev = process.env.NODE_ENV === 'development';
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
 // API routes
 app.use('/api/auth', authRoutes);
