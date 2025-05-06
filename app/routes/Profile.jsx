@@ -12,13 +12,13 @@ import SettingsForm from "../components/profile/SettingsForm";
 import TabNavigation from "../components/profile/TabNavigation";
 import RatingsOnlyGrid from "../components/profile/RatingsOnlyGrid";
 import MovieCard from "../components/MovieCard";
+import CarouselSection from "../components/CarouselSection";
 import ActivityComingSoon from "../components/profile/activity";
 
 // const API_BASE =
 //   typeof window !== "undefined"
 //     ? window.ENV?.VITE_API_URL
 //     : process.env.VITE_API_URL || "http://localhost:5000";
-
 
 export default function ProfilePage() {
   const [token, setToken] = useState(null);
@@ -159,22 +159,18 @@ export default function ProfilePage() {
             </div>
 
             {/* Recommended Movies */}
-            <div className="mb-12">
-              <h2 className="text-2xl font-bold mb-6">Recommended For You</h2>
-              {loadingRec ? (
-                <p className="text-gray-400">Loading recommendations...</p>
-              ) : recommended.length === 0 ? (
-                <p className="text-gray-400 italic">
-                  No recommendations found. Try rating more movies!
-                </p>
-              ) : (
-                <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                  {recommended.map((movie) => (
-                    <MovieCard key={movie.id} {...movie} />
-                  ))}
-                </div>
-              )}
-            </div>
+            {loadingRec ? (
+              <p className="text-gray-400 mt-12">Loading recommendations...</p>
+            ) : recommended.length > 0 ? (
+              <div className="w-full mt-12 space-y-4">
+                <h2 className="text-2xl font-bold">Recommended For You</h2>
+                <CarouselSection items={recommended} sectionId="profile-recs" />
+              </div>
+            ) : (
+              <p className="text-gray-400 mt-12 italic">
+                No recommendations found. Try rating more movies!
+              </p>
+            )}
           </>
         )}
 
