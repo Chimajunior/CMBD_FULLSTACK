@@ -18,21 +18,12 @@ export default function AvatarUpload({ value, onUpload, showToast }) {
       return;
     }
 
-    if (file.size > 2 * 1024 * 1024) {
-      showToast("⚠️ Max file size is 2MB", "error");
+    if (file.size > 5 * 1024 * 1024) {
+      showToast("⚠️ Max file size is 5MB", "error");
       return;
     }
 
-    const img = new Image();
-    img.onload = () => {
-      const aspect = img.width / img.height;
-      if (aspect < 0.9 || aspect > 1.1) {
-        showToast("Image must be roughly square", "error");
-        return;
-      }
-      uploadToCloudinary(file);
-    };
-    img.src = URL.createObjectURL(file);
+    uploadToCloudinary(file);
   };
 
   const uploadToCloudinary = async (file) => {
@@ -56,9 +47,9 @@ export default function AvatarUpload({ value, onUpload, showToast }) {
       );
       setPreview(transformed);
       onUpload?.(transformed);
-      showToast(" Avatar uploaded");
+      showToast("Avatar uploaded");
     } catch {
-      showToast(" Upload failed", "error");
+      showToast("Upload failed", "error");
     } finally {
       setUploading(false);
     }
@@ -99,7 +90,9 @@ export default function AvatarUpload({ value, onUpload, showToast }) {
             <div className="flex flex-col items-center text-gray-400">
               <UploadCloud size={32} className="mb-1" />
               <span className="text-sm">Click or drag an image here</span>
-              <span className="text-xs text-gray-500">Max size 2MB • 1:1 aspect</span>
+              <span className="text-xs text-gray-500">
+                Max size 5MB • Any aspect ratio
+              </span>
             </div>
           )}
         </>

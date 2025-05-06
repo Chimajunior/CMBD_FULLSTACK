@@ -31,7 +31,7 @@ export default function ReviewsTab({ reviews, token, onApprove, onDelete }) {
                 className="text-green-400 hover:text-green-300 text-sm"
                 onClick={() => onApprove(review.id)}
               >
-                ✅ Approve
+                 Approve
               </button>
             )}
             <button

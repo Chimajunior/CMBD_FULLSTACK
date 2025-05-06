@@ -115,7 +115,7 @@ router.post("/", authenticateUser, async (req, res) => {
 
 
 
-
+                         
 
 router.post('/:id/helpful', authenticateUser, async (req, res) => {
   const { id } = req.params;
@@ -134,7 +134,7 @@ router.post('/:id/helpful', authenticateUser, async (req, res) => {
     await pool.query(
       "INSERT INTO review_helpful_votes (user_id, review_id) VALUES (?, ?)",
       [user_id, id]
-    );
+    );    
 
     res.json({ message: "Marked as helpful." });
   } catch (error) {
@@ -315,7 +315,7 @@ router.post('/:id/flag', authenticateUser, async (req, res) => {
 
         // Send Email Notification to Admin
         const adminEmail = process.env.ADMIN_EMAIL;
-        const emailSubject = "🚩 Flagged Review Alert!";
+        const emailSubject = "Flagged Review Alert!";
         const emailText = `A review (ID: ${id}) has been flagged for moderation. Please review it at your admin panel.`;
 
         await sendEmail(adminEmail, emailSubject, emailText);
@@ -492,3 +492,20 @@ router.get("/:movie_id", authenticateOptional, async (req, res) => {
 
 export default router;
 
+router.post("/:id/approve", authenticateAdmin, async (req, res) => {
+  await pool.query("UPDATE reviews SET flagged = FALSE WHERE id = ?", [req.params.id]);
+  await pool.query(
+    "INSERT INTO moderation_logs (admin_id, review_id, action) VALUES (?, ?, ?)",
+    [req.user.id, req.params.id, "approved"]
+  );
+  res.json({ message: "Review approved" });
+});
+
+router.delete("/:id", authenticateAdmin, async (req, res) => {
+  await pool.query("DELETE FROM reviews WHERE id = ?", [req.params.id]);
+  await pool.query(
+    "INSERT INTO moderation_logs (admin_id, review_id, action) VALUES (?, ?, ?)",
+    [req.user.id, req.params.id, "deleted"]
+  );
+  res.json({ message: "Review deleted" });
+});

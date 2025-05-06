@@ -23,7 +23,7 @@ export async function fetchWithAuth(url, options = {}) {
     return res;
   } catch (err) {
     console.error("Global Fetch Error:", err);
-    showToast("⚠️ Network error. Try again.");
+    showToast("Network error. Try again.");
     return null;
   }
 }

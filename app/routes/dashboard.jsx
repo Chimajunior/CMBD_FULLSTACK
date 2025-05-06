@@ -225,7 +225,7 @@ useEffect(() => {
             <TabsTrigger value="users">Users</TabsTrigger>
           </TabsList>
 
-          {/* 🎬 Movies */}
+          {/* Movies */}
           <TabsContent value="movies">
             <div className="flex justify-between items-center mb-6">
               <input
@@ -283,7 +283,7 @@ useEffect(() => {
                 onClick={fetchFlaggedReviews}
                 className="text-sm text-yellow-400 hover:text-yellow-300"
               >
-                🔄 Refresh Reviews
+                 Refresh Reviews
               </button>
             </div>
             <ReviewsTab

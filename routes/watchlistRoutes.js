@@ -34,7 +34,7 @@ router.get("/", authenticateUser, async (req, res) => {
   }
 });
 
-// ⭐ Check if specific movie is in watchlist
+//  Check if specific movie is in watchlist
 router.get("/:movieId", authenticateUser, async (req, res) => {
   try {
     const [rows] = await pool.query(
@@ -47,7 +47,7 @@ router.get("/:movieId", authenticateUser, async (req, res) => {
   }
 });
 
-// ➕ Add movie to watchlist
+//Add movie to watchlist
 router.post("/", authenticateUser, async (req, res) => {
   const { movie_id } = req.body;
 
@@ -84,7 +84,7 @@ router.delete("/:movieId", authenticateUser, async (req, res) => {
   }
 });
 
-// POST /api/watchlist/toggle
+// when toggle button is clicked in the frontend
 router.post("/toggle", authenticateUser, async (req, res) => {
     const { movie_id } = req.body;
     const userId = req.user.id;

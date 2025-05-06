@@ -35,11 +35,8 @@ export default function Footer() {
                   Movies
                 </Link>
               </li>
-              {/* <li>
-      <Link to="/contact" className="text-gray-400 hover:text-white transition-colors duration-300">
-        Contact
-      </Link>
-    </li> */}
+             
+    
               <li>
                 <Link
                   to="/privacy-policy"
