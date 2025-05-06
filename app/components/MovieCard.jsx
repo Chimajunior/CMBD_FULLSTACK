@@ -38,7 +38,7 @@ export default function MovieCard({ id, title, imageUrl, onWatchlistChange }) {
       if (!token) return;
   
       try {
-        const res = await fetch(`${API_BASE}/api/profile`, {
+        const res = await fetch(`/api/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const userData = await res.json();
