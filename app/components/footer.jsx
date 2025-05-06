@@ -18,67 +18,38 @@ export default function Footer() {
             <h3 className="text-xl font-bold mb-4">Quick Links</h3>
             <ul className="space-y-2">
               <li>
-                <Link
-                  to="/"
-                  className="text-gray-400 hover:text-white transition-colors duration-300"
-                >
-                  Home
-                </Link>
+                <Link to="/" className="text-gray-400 hover:text-white transition-colors duration-300">Home</Link>
               </li>
               <li>
-                <Link
-                  to="/movies"
-                  className="text-gray-400 hover:text-white transition-colors duration-300"
-                >
-                  Movies
-                </Link>
+                <Link to="/movies" className="text-gray-400 hover:text-white transition-colors duration-300">Movies</Link>
               </li>
               <li>
-                <Link
-                  to="/privacy-policy"
-                  className="text-gray-400 hover:text-white transition-colors duration-300"
-                >
-                  Privacy Policy
-                </Link>
+                <Link to="/privacy-policy" className="text-gray-400 hover:text-white transition-colors duration-300">Privacy Policy</Link>
               </li>
               <li>
-                <Link
-                  to="/terms-of-use"
-                  className="text-gray-400 hover:text-white transition-colors duration-300"
-                >
-                  Terms of Use
-                </Link>
+                <Link to="/terms-of-use" className="text-gray-400 hover:text-white transition-colors duration-300">Terms of Use</Link>
               </li>
             </ul>
           </div>
 
           {/* Social Media */}
-          <div className="mb-6 md:mb-0 text-sm">
+          <div className="mb-6 md:mb-0">
             <h3 className="text-xl font-bold mb-4">Follow Us</h3>
             <div className="flex space-x-4">
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors duration-300"
-              >
-                <i className="fab fa-twitter"></i> Twitter
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 4.557a9.83 9.83 0 01-2.828.775 4.932 4.932 0 002.165-2.724..."/>
+                </svg>
               </a>
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors duration-300"
-              >
-                <i className="fab fa-facebook"></i> Facebook
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351..."/>
+                </svg>
               </a>
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors duration-300"
-              >
-                <i className="fab fa-instagram"></i> Instagram
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition">
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07..."/>
+                </svg>
               </a>
             </div>
           </div>
@@ -86,9 +57,7 @@ export default function Footer() {
           {/* Newsletter */}
           <div className="text-sm">
             <h3 className="text-xl font-bold mb-4">Newsletter</h3>
-            <p className="text-gray-400 mb-4">
-              Subscribe to get the latest movie updates and more.
-            </p>
+            <p className="text-gray-400 mb-4">Subscribe to get the latest movie updates and more.</p>
             <form
               className="flex flex-col sm:flex-row gap-2"
               onSubmit={(e) => {

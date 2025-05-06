@@ -122,18 +122,20 @@ export default function ProfilePage() {
         />
 
         {/* Tabs */}
-        <TabNavigation
-          tabs={[
-            "dashboard",
-            "reviews",
-            "ratings",
-            "watchlist",
-            "settings",
-            "activity",
-          ]}
-          activeTab={activeTab}
-          onChange={setActiveTab}
-        />
+        <div className="overflow-x-auto hide-scrollbar mb-6 -mx-2 px-2">
+          <TabNavigation
+            tabs={[
+              "dashboard",
+              "reviews",
+              "ratings",
+              "watchlist",
+              "settings",
+              "activity",
+            ]}
+            activeTab={activeTab}
+            onChange={setActiveTab}
+          />
+        </div>
 
         {/* Dashboard Tab */}
         {activeTab === "dashboard" && (
