@@ -11,7 +11,6 @@ import WatchlistGrid from "../components/profile/WatchlistGrid";
 import SettingsForm from "../components/profile/SettingsForm";
 import TabNavigation from "../components/profile/TabNavigation";
 import RatingsOnlyGrid from "../components/profile/RatingsOnlyGrid";
-import MovieCard from "../components/MovieCard";
 import CarouselSection from "../components/CarouselSection";
 import ActivityComingSoon from "../components/profile/activity";
 

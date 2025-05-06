@@ -8,7 +8,7 @@ export default function WatchlistGrid({ movies = [] }) {
       {movies.length === 0 ? (
         <p className="text-gray-400 italic">No movies in your watchlist yet.</p>
       ) : (
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
           {movies.map((movie) => (
             <MovieCard key={movie.id} {...movie} />
           ))}
