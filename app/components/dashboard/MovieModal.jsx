@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { X } from "lucide-react";
 
-export default function MovieModal({ open, onClose, onSubmit, editingMovie, token }) {
+export default function MovieModal({
+  open,
+  onClose,
+  onSubmit,
+  editingMovie,
+  token,
+}) {
   const [form, setForm] = useState({
     title: "",
     poster_url: "",
@@ -46,7 +52,14 @@ export default function MovieModal({ open, onClose, onSubmit, editingMovie, toke
   };
 
   const handleSubmit = async () => {
-    const required = ["title", "poster_url", "description", "release_date", "cast", "genre"];
+    const required = [
+      "title",
+      "poster_url",
+      "description",
+      "release_date",
+      "cast",
+      "genre",
+    ];
     const newErrors = {};
 
     required.forEach((field) => {
@@ -61,23 +74,21 @@ export default function MovieModal({ open, onClose, onSubmit, editingMovie, toke
       return;
     }
 
-    const API_BASE = import.meta.env.VITE_API_URL;
-
-try {
-  const res = await fetch(
-    isEdit
-      ? `${API_BASE}/api/movies/${editingMovie.id}`
-      : `${API_BASE}/api/movies`,
-    {
-      method: isEdit ? "PUT" : "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(form),
-    }
-  );
-
+    const API_BASE = "";
+    try {
+      const res = await fetch(
+        isEdit
+          ? `${API_BASE}/api/movies/${editingMovie.id}`
+          : `${API_BASE}/api/movies`,
+        {
+          method: isEdit ? "PUT" : "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(form),
+        }
+      );
 
       const data = await res.json();
       if (!res.ok) {
@@ -98,7 +109,10 @@ try {
   return (
     <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
       <div className="bg-[#1a1a1a] p-6 rounded-lg w-[95%] max-w-lg relative border border-gray-700">
-        <button onClick={onClose} className="absolute top-3 right-3 text-gray-400 hover:text-white">
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 text-gray-400 hover:text-white"
+        >
           <X className="w-5 h-5" />
         </button>
         <h2 className="text-xl font-bold text-yellow-400 mb-4">
@@ -106,7 +120,14 @@ try {
         </h2>
 
         <div className="space-y-3">
-          {["title", "poster_url", "description", "release_date", "cast", "genre"].map((field) => (
+          {[
+            "title",
+            "poster_url",
+            "description",
+            "release_date",
+            "cast",
+            "genre",
+          ].map((field) => (
             <div key={field}>
               <label className="block text-sm mb-1 capitalize">
                 {field.replace("_", " ")}
